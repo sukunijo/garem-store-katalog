@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Katalog HP Second Ready — Garem Store Pekalongan</title>
 <meta name="description" content="Katalog stok HP second ready Garem Store, Poncol, Kota Pekalongan. Harga update real-time dari data toko. Beli langsung via WhatsApp.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Garem Store">
+<meta property="og:title" content="Katalog HP Second Ready — Garem Store Pekalongan">
+<meta property="og:description" content="Stok HP second ready Garem Store, Poncol, Kota Pekalongan. Harga pasang siap COD Pekalongan – Batang. Klik buat cek stok & beli langsung via WhatsApp.">
+<meta property="og:url" content="https://sukunijo.github.io/garem-store-katalog/">
+<meta property="og:image" content="https://drive.google.com/thumbnail?id=1-Nt6fLuTlJKrJkORIxtnGwH2ZO3kK8yD&amp;sz=w1000">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root{
     --green:#16a34a; --green2:#15803d; --dark:#14532d;
@@ -56,7 +64,7 @@
   <div class="tag">Katalog HP Second Ready — Jujur &amp; Terpercaya</div>
   <div class="meta">
     Poncol, Kota Pekalongan · COD Wilayah Kota Pekalongan – Batang<br>
-    Buka 10.00–00.00 WIB (Jumat 13.30–00.00) · Garansi toko 5–7 hari
+    Buka 10.00–00.00 WIB (Jumat 13.30–00.00) · Garansi toko 5–7 hari<span id="stokper"></span>
   </div>
 </header>
 
@@ -176,8 +184,27 @@ function render(){
   }).join("");
 }
 
+async function muatInfo(){
+  try{
+    const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:json&sheet=Info";
+    const res = await fetch(url);
+    const text = await res.text();
+    const json = JSON.parse(text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1));
+    for (const r of json.table.rows || []){
+      const c = r.c || [];
+      const a = c[0] ? String(c[0].v ?? "") : "";
+      if (a.trim().toLowerCase() === "update terakhir"){
+        const b = c[1] ? String(c[1].v ?? "") : "";
+        if (b) $("stokper").textContent = " · Stok per " + b;
+        break;
+      }
+    }
+  }catch(e){ /* abaikan — katalog tetap jalan tanpa label ini */ }
+}
+
 async function muat(){
   try{
+    muatInfo();
     DATA = await ambilData();
     buatChips();
     render();
