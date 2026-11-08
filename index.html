@@ -115,19 +115,19 @@ const rp = (n) => "Rp" + Number(n || 0).toLocaleString("id-ID");
 const brandOf = (model) => String(model || "").trim().split(/\s+/)[0] || "Lainnya";
 
 async function ambilData(){
-  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:json&sheet=" + encodeURIComponent(SHEET_TAB);
+  const url = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:json&headers=1&sheet=" + encodeURIComponent(SHEET_TAB);
   const res = await fetch(url);
   const text = await res.text();
   const json = JSON.parse(text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1));
   const cols = json.table.cols.map((c) => (c.label || "").trim().toLowerCase());
-  const idx = (nama) => cols.indexOf(nama);
-  const iM = idx("model"), iV = idx("varian"), iW = idx("warna"), iH = idx("harga"), iS = idx("stok"), iF = idx("foto"), iC = idx("catatan");
+  const idx = (nama, pos) => { const i = cols.indexOf(nama); return i >= 0 ? i : pos; };
+  const iM = idx("model", 0), iV = idx("varian", 1), iW = idx("warna", 2), iH = idx("harga", 3), iS = idx("stok", 4), iF = idx("foto", 5), iC = idx("catatan", 6);
   const rows = [];
   for (const r of json.table.rows || []){
     const c = r.c || [];
     const val = (i) => (i >= 0 && c[i] ? (c[i].v ?? "") : "");
     const model = String(val(iM)).trim();
-    if (!model) continue;
+    if (!model || model.toLowerCase() === "model") continue;
     rows.push({
       model,
       varian: String(val(iV)).trim(),
