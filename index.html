@@ -25,7 +25,7 @@
   html{scroll-behavior:smooth}
   body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased}
   header{background:linear-gradient(135deg,var(--dark2),var(--dark) 45%,var(--green2));color:#fff;padding:26px 16px 20px;text-align:center}
-  header h1{margin:0;font-size:29px;letter-spacing:.04em;font-weight:800}
+  header h1{margin:0;font-size:29px;letter-spacing:.04em;font-weight:800}header .logo{display:block;width:92px;height:92px;margin:0 auto 12px;border-radius:22%;box-shadow:0 6px 18px rgba(0,0,0,.35)}
   header .tag{opacity:.94;font-size:14.5px;margin-top:5px}
   header .meta{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:13px}
   header .mchip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:4px 11px;font-size:12.5px;line-height:1.5}
@@ -81,7 +81,7 @@
 <body>
 
 <header>
-  <h1>📱 GAREM STORE</h1>
+  <img class="logo" src="logo.png" alt="Logo Garem Store" width="92" height="92"><h1>📱 GAREM STORE</h1>
   <div class="tag">Katalog HP Second Ready — Jujur &amp; Terpercaya</div>
   <div class="meta">
     <span class="mchip">📍 Poncol, Kota Pekalongan</span>
@@ -214,7 +214,7 @@ function render(){
       '<div class="spec">' + esc(x.varian) + (x.warna ? " · " + esc(x.warna) : "") + '</div>' +
       (x.catatan ? '<div class="badges"><span class="badge warn">' + esc(x.catatan) + "</span></div>" : "") +
       '<div class="harga">' + rp(x.harga) + '</div>' +
-      '<div class="hargacap">Harga pasang · siap COD</div>' +
+      '<div class="hargacap">Siap COD Wilayah Kota Pekalongan - Batang</div>' +
       '<a class="wa" href="' + wa + '" target="_blank" rel="noopener">' + IKON_WA + ' Beli via WhatsApp</a>' +
       "</div></div>";
   }).join("");
