@@ -6,9 +6,6 @@ Landing page katalog stok HP second yang **ready** di Garem Store
 ## Cara kerja
 
 ```text
-[ Saluran WhatsApp Garem Store ]  (update stok & payu diumumkan di sini)
-        │
-        ▼
 [ Google Sheets ]  "Katalog Garem Store — Stok Ready"
         │  disinkronkan Muse dari data stok terverifikasi setiap ada perubahan
         ▼
